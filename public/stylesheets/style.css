@@ -15,9 +15,14 @@ body {
   border-radius: 24px;
   color: red;
 }
+.submitButton {
+  float: right;
+  margin: -28px 0 0 10px;
+}
 
 .deleteButton {
-  margin: 10px 0 0 10px;
+  margin: -28px 0 0 10px;
+  float: right;
 }
 
 span {
@@ -42,4 +47,5 @@ li {
   float: left;
   width: 50px;
   height: 20px;
+  margin: -19px 0 0 -37px;
 }
