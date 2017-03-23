@@ -53,4 +53,18 @@ router.post('/edit/:id', function(req, res, next) {
       next(error)
     })
 })
+
+router.post('/update_rank/:id', function(req, res, next) {
+const { id } = req.params
+const { rank } = req.body
+console.log("rank?", rank)
+db.setRank(id, rank)
+.then(function() {
+res.redirect('/')
+})
+.catch(function(error) {
+next(error)
+})
+})
+
 module.exports = router;

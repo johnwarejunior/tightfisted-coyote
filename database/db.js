@@ -24,10 +24,16 @@ const updateItems = (id, task) => {
   return db.oneOrNone(psql, [id, task])
 }
 
+const setRank = (id, rank) => {
+const psql= `UPDATE todo SET rank=$2 WHERE id=$1`
+return db.one(psql, [id, rank])
+}
+
 module.exports = {
   getAllItems,
   addItems,
   completeItems,
   deleteItems,
-  updateItems
+  updateItems,
+  setRank
 }
