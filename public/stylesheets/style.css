@@ -3,10 +3,39 @@ body {
   font: 14px sans-serif;
 }
 
-a {
+.header {
+  background-color: #0A4AC1;
+  padding: 30px 40px;
+  width: 34%;
   color: white;
 }
 
-span {
+.addButton {
+  margin: 10px 0 0 10px;
+  border-radius: 24px;
   color: red;
+}
+
+span {
+  color: white;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-left: 0;
+}
+
+li {
+  padding: 30px;
+  background-color: white;
+  border: 1px solid #C9EFEE;
+  font-size: 22px;
+  width: 34%;
+}
+
+.checkBox {
+  float: left;
+  width: 50px;
+  height: 20px;
 }
