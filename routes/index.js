@@ -29,4 +29,28 @@ router.post('/complete/:id', function(req, res, next) {
   .catch(error => next(error))
 })
 
+router.post('/delete/:id', function(req, res, next) {
+  const { id } = req.params
+  console.log('id=====>', id);
+  db.deleteItems(id)
+  .then(function() {
+    res.redirect('/')
+  })
+  .catch(function(error) {
+    next(error)
+  })
+})
+
+router.post('/edit/:id', function(req, res, next) {
+  const { id } = req.params
+  const { task } = req.body
+
+  db.updateItems(id, task)
+    .then(function() {
+      res.redirect('/')
+    })
+    .catch(function(error) {
+      next(error)
+    })
+})
 module.exports = router;

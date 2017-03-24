@@ -19,8 +19,15 @@ const deleteItems = (id) => {
   return db.none(psql, [id])
 }
 
+const updateItems = (id, task) => {
+  const psql = `UPDATE todo SET task=$2 WHERE id=$1 RETURNING *`
+  return db.oneOrNone(psql, [id, task])
+}
+
 module.exports = {
   getAllItems,
   addItems,
-  completeItems
+  completeItems,
+  deleteItems,
+  updateItems
 }
