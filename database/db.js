@@ -1,7 +1,7 @@
 const { db } = require('./connection.js')
 
 const getAllItems = () => {
-  return db.any('SELECT * FROM todo')
+  return db.any('SELECT * FROM todo ORDER BY rank ASC')
 }
 
 const addItems = (task) => {

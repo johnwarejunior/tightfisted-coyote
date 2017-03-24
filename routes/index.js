@@ -54,17 +54,16 @@ router.post('/edit/:id', function(req, res, next) {
     })
 })
 
-router.post('/update_rank/:id', function(req, res, next) {
-const { id } = req.params
-const { rank } = req.body
-console.log("rank?", rank)
-db.setRank(id, rank)
-.then(function() {
-res.redirect('/')
-})
-.catch(function(error) {
-next(error)
-})
+router.post('/update_ranks', function(req, res, next) {
+  const body = res.json(req.body)
+console.log('body------->', body);
+  body.forEach(function(id) {
+    db.setRank(id, rank)
+    .then(function() {
+      res.render(body)
+    })
+  })
+
 })
 
 module.exports = router;
