@@ -2,9 +2,16 @@ doctype html
 html
   head
     title To Do List
+    link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
+    link(href='https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css', rel='stylesheet')
 
+    script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
+    script(src='https://code.jquery.com/jquery-1.10.2.js')
+    script(src='https://code.jquery.com/ui/1.10.4/jquery-ui.js')
+    script(src='javascripts/main.js')
     link(rel='stylesheet', href='stylesheets/style.css')
   body
     h1.header My To Do List
@@ -12,40 +19,56 @@ html
         input(type='text', name='todo' placeholder='Add Task...')
         button.addButton
           span.glyphicon.glyphicon-plus(aria-hidden='true')
-    ul
+    ul.drag
       each val in allMyToDos
-        form(method='POST', action=`/complete/${val.id}`)
           if !val.completed
-              li(id=val.id)=val.task
-                input.checkBox(type='checkbox' name='complete'    onclick='this.form.submit()')
+              li.listItem(id=val.id, draggable='true')=val.task
+                form(method='POST', action=`/complete/${val.id}`)
+                  input.checkBox(type='checkbox' name='complete'    onclick='this.form.submit()')
+                button.submitButton.btn.btn-primary(type="submit", data-toggle='modal', data-target=`#edit${val.id}Modal`, data-id=val.id)
+                  span.glyphicon.glyphicon-edit(aria-hidden='true')
+                  form(method='POST', action=`/delete/${val.id}`)
+                      button.btn.btn-danger.deleteButton
+                        span.glyphicon.glyphicon-remove(aria-hidden='true')
+
+                .modal.fade(id=`edit${val.id}Modal`, tabindex='-1', role='dialog', aria-labelledby='editModalLabel')
+                  .modal-dialog(role='document')
+                    .modal-content
+                      form(method='POST', action=`/edit/${val.id}`)
+                        input(type='hidden', id='edit-form-id', name='id', value=val.id)
+                        .modal-header
+                          button.close(type='button', data-dismiss='modal', aria-label='Close')
+                            span(aria-hidden='true') x
+                          h4#editModalLabel.modal-title Edit this task
+                        .modal-body
+                          .form-group
+                            input.form-control(type='text', name='task', value=val.task id=val.id)
+                        .modal-footer
+                          button.btn.btn-primary(type='submit') Save changes
+                            button.btn.btn-default(data-dismiss='modal') Close
           else
             li(id=val.id style='text-decoration: line-through')=val.task
-              input.checkBox(type='checkbox' name='complete' onclick='this.form.submit()')
+              form(method='POST', action=`/complete/${val.id}`)
+                input.checkBox(type='checkbox' name='complete' onclick='this.form.submit()')
 
-        button.btn.btn-primary(type="submit", data-toggle='modal', data-target=`#edit${val.id}Modal`, data-id=val.id)
-          span.glyphicon.glyphicon-edit(aria-hidden='true')
-          form(method='POST', action=`/delete/${val.id}`)
-              button.btn.btn-danger.deleteButton
-                span.glyphicon.glyphicon-remove(aria-hidden='true')
+              button.submitButton.btn.btn-primary(type="submit", data-toggle='modal', data-target=`#edit${val.id}Modal`, data-id=val.id)
+                span.glyphicon.glyphicon-edit(aria-hidden='true')
+                form(method='POST', action=`/delete/${val.id}`)
+                    button.btn.btn-danger.deleteButton
+                      span.glyphicon.glyphicon-remove(aria-hidden='true')
 
-        .modal.fade(id=`edit${val.id}Modal`, tabindex='-1', role='dialog', aria-labelledby='editModalLabel')
-          .modal-dialog(role='document')
-            .modal-content
-              form(method='POST', action=`/edit/${val.id}`)
-                input(type='hidden', id='edit-form-id', name='id', value=val.id)
-                .modal-header
-                  button.close(type='button', data-dismiss='modal', aria-label='Close')
-                    span(aria-hidden='true') x
-                  h4#editModalLabel.modal-title Edit this task
-                .modal-body
-                  .form-group
-                    input.form-control(type='text', name='task', value=val.task, id=val.id)
-                .modal-footer
-                  button.btn.btn-primary(type='submit') Save changes
-                    button.btn.btn-default(data-dismiss='modal') Close
-
-
-
-          script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
-
-          script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
+              .modal.fade(id=`edit${val.id}Modal`, tabindex='-1', role='dialog', aria-labelledby='editModalLabel')
+                .modal-dialog(role='document')
+                  .modal-content
+                    form(method='POST', action=`/edit/${val.id}`)
+                      input(type='hidden', id='edit-form-id', name='id', value=val.id)
+                      .modal-header
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                          span(aria-hidden='true') x
+                        h4#editModalLabel.modal-title Edit this task
+                      .modal-body
+                        .form-group
+                          input.form-control(type='text', name='task', value=val.task id=val.id)
+                      .modal-footer
+                        button.btn.btn-primary(type='submit') Save changes
+                          button.btn.btn-default(data-dismiss='modal') Close
