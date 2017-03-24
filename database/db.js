@@ -1,7 +1,7 @@
 const { db } = require('./connection.js')
 
 const getAllItems = () => {
-  return db.any('SELECT * FROM todo ORDER BY rank ASC')
+  return db.any('SELECT * FROM todo ORDER BY rank')
 }
 
 const addItems = (task) => {
@@ -25,9 +25,10 @@ const updateItems = (id, task) => {
 }
 
 const setRank = (id, rank) => {
-const psql= `UPDATE todo SET rank=$2 WHERE id=$1`
-return db.one(psql, [id, rank])
+  const psql = `UPDATE todo SET rank=$2 WHERE id=$1`
+return db.oneOrNone(psql, [id, rank])
 }
+
 
 module.exports = {
   getAllItems,

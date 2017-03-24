@@ -31,7 +31,6 @@ router.post('/complete/:id', function(req, res, next) {
 
 router.post('/delete/:id', function(req, res, next) {
   const { id } = req.params
-  console.log('id=====>', id);
   db.deleteItems(id)
   .then(function() {
     res.redirect('/')
@@ -55,15 +54,12 @@ router.post('/edit/:id', function(req, res, next) {
 })
 
 router.post('/update_ranks', function(req, res, next) {
-  const body = res.json(req.body)
-console.log('body------->', body);
-  body.forEach(function(id) {
-    db.setRank(id, rank)
-    .then(function() {
-      res.render(body)
-    })
-  })
+  const body = req.body
 
+  let  promises = body.map(function(id, index) {
+      return db.setRank(id, index)
+    })
+    Promise.all(promises).then(results => res.json({message: "all done"}))
 })
 
 module.exports = router;
