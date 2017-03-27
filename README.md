@@ -45,18 +45,18 @@ When working on this goal, you'll encounter questions like:
 
 ### User Stories
 
-- [ ] Users can create to do list items.
-- [ ] Users can delete unwanted to do list items.
-- [ ] Users can check items off as completed.
-- [ ] Users can rearrange to do list items.
-- [ ] Users can edit the text on existing to do list items.
-- [ ] When an error occurs, the user is notified.
+- [X] Users can create to do list items.
+- [X] Users can delete unwanted to do list items.
+- [X] Users can check items off as completed.
+- [X] Users can rearrange to do list items.
+- [X] Users can edit the text on existing to do list items.
+- [X] When an error occurs, the user is notified.
 
 ### Additional
 
-- [ ] Backend uses Node.js and [Express][npm-express].
-- [ ] App persists to do list items in a database.
-- [ ] The artifact produced is properly licensed, preferably with the [MIT license][mit-license].
+- [X] Backend uses Node.js and [Express][npm-express].
+- [X] App persists to do list items in a database.
+- [X] The artifact produced is properly licensed, preferably with the [MIT license][mit-license].
 
 ### Stretch
 
