@@ -7,13 +7,13 @@ body {
   background-color: #0A4AC1;
   padding: 30px 40px;
   width: 34%;
-  color: black;
+  color: white;
 }
 
 .addButton {
   margin: 10px 0 0 10px;
   border-radius: 24px;
-  color: red;
+  background-color: #00b8e6;
 }
 .submitButton {
   float: right;

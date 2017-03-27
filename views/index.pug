@@ -22,7 +22,7 @@ html
     ul.drag
       each val in allMyToDos
           if !val.completed
-              li.listItem(id=val.id, draggable='true')=val.task
+              li(id=val.id)=val.task
                 form(method='POST', action=`/complete/${val.id}`)
                   input.checkBox(type='checkbox' name='complete'    onclick='this.form.submit()')
                 button.submitButton.btn.btn-primary(type="submit", data-toggle='modal', data-target=`#edit${val.id}Modal`, data-id=val.id)

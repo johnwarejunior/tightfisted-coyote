@@ -56,7 +56,7 @@ router.post('/edit/:id', function(req, res, next) {
 router.post('/update_ranks', function(req, res, next) {
   const body = req.body
 
-  let  promises = body.map(function(id, index) {
+  let promises = body.map(function(id, index) {
       return db.setRank(id, index)
     })
     Promise.all(promises).then(results => res.json({message: "all done"}))
